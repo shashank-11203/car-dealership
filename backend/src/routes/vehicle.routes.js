@@ -4,5 +4,6 @@ const auth = require("../middlewares/auth");
 const vehicleController = require("../controllers/vehicle.controller");
 
 router.post("/", auth, vehicleController.createVehicle);
+router.get("/", auth, vehicleController.getVehicles);
 
 module.exports = router;
