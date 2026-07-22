@@ -16,7 +16,6 @@ beforeAll(async () => {
   process.env.JWT_SECRET = "testsecret";
 
   mongoServer = await MongoMemoryServer.create();
-
   await mongoose.connect(mongoServer.getUri());
 });
 
@@ -29,12 +28,20 @@ beforeEach(async () => {
   await User.deleteMany({});
   await Vehicle.deleteMany({});
 
+  // Register user
   await request(app).post("/api/auth/register").send({
     name: "Admin",
     email: "admin@test.com",
     password: "123456",
   });
 
+  // Make user admin
+  await User.findOneAndUpdate(
+    { email: "admin@test.com" },
+    { role: "admin" }
+  );
+
+  // Login
   const login = await request(app).post("/api/auth/login").send({
     email: "admin@test.com",
     password: "123456",
@@ -44,6 +51,7 @@ beforeEach(async () => {
 });
 
 describe("Vehicle API", () => {
+
   it("should create a vehicle", async () => {
     const response = await request(app)
       .post("/api/vehicles")
@@ -57,68 +65,127 @@ describe("Vehicle API", () => {
       });
 
     expect(response.statusCode).toBe(201);
+    expect(response.body.make).toBe("Toyota");
   });
 
   it("should get all vehicles", async () => {
-  await Vehicle.create({
-    make: "Toyota",
-    model: "Fortuner",
-    category: "SUV",
-    price: 4500000,
-    quantity: 5,
-  });
-
-  const response = await request(app)
-    .get("/api/vehicles")
-    .set("Authorization", `Bearer ${token}`);
-
-  expect(response.statusCode).toBe(200);
-  expect(response.body.length).toBe(1);
-});
-
-it("should search vehicles by make", async () => {
-  await Vehicle.create([
-    {
+    await Vehicle.create({
       make: "Toyota",
       model: "Fortuner",
       category: "SUV",
       price: 4500000,
       quantity: 5,
-    },
-    {
-      make: "Honda",
-      model: "City",
-      category: "Sedan",
-      price: 1500000,
-      quantity: 3,
-    },
-  ]);
-
-  const response = await request(app)
-    .get("/api/vehicles/search?make=Toyota")
-    .set("Authorization", `Bearer ${token}`);
-
-  expect(response.statusCode).toBe(200);
-  expect(response.body.length).toBe(1);
-});
-
-it("should update vehicle", async () => {
-  const vehicle = await Vehicle.create({
-    make: "Toyota",
-    model: "Fortuner",
-    category: "SUV",
-    price: 4500000,
-    quantity: 5,
-  });
-
-  const response = await request(app)
-    .put(`/api/vehicles/${vehicle._id}`)
-    .set("Authorization", `Bearer ${token}`)
-    .send({
-      price: 5000000,
     });
 
-  expect(response.statusCode).toBe(200);
-  expect(response.body.price).toBe(5000000);
-});
+    const response = await request(app)
+      .get("/api/vehicles")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.length).toBe(1);
+  });
+
+  it("should search vehicles by make", async () => {
+    await Vehicle.create([
+      {
+        make: "Toyota",
+        model: "Fortuner",
+        category: "SUV",
+        price: 4500000,
+        quantity: 5,
+      },
+      {
+        make: "Honda",
+        model: "City",
+        category: "Sedan",
+        price: 1500000,
+        quantity: 3,
+      },
+    ]);
+
+    const response = await request(app)
+      .get("/api/vehicles/search?make=Toyota")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.length).toBe(1);
+    expect(response.body[0].make).toBe("Toyota");
+  });
+
+  it("should update vehicle", async () => {
+    const vehicle = await Vehicle.create({
+      make: "Toyota",
+      model: "Fortuner",
+      category: "SUV",
+      price: 4500000,
+      quantity: 5,
+    });
+
+    const response = await request(app)
+      .put(`/api/vehicles/${vehicle._id}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        price: 5000000,
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.price).toBe(5000000);
+  });
+
+  it("should delete vehicle", async () => {
+    const vehicle = await Vehicle.create({
+      make: "Toyota",
+      model: "Fortuner",
+      category: "SUV",
+      price: 4500000,
+      quantity: 5,
+    });
+
+    const response = await request(app)
+      .delete(`/api/vehicles/${vehicle._id}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(200);
+
+    const deleted = await Vehicle.findById(vehicle._id);
+    expect(deleted).toBeNull();
+  });
+
+  it("should purchase vehicle", async () => {
+    const vehicle = await Vehicle.create({
+      make: "Toyota",
+      model: "Fortuner",
+      category: "SUV",
+      price: 4500000,
+      quantity: 5,
+    });
+
+    const response = await request(app)
+      .post(`/api/vehicles/${vehicle._id}/purchase`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.quantity).toBe(4);
+  });
+
+  it("should restock vehicle", async () => {
+    const vehicle = await Vehicle.create({
+      make: "Toyota",
+      model: "Fortuner",
+      category: "SUV",
+      price: 4500000,
+      quantity: 1,
+    });
+
+    const response = await request(app)
+      .post(`/api/vehicles/${vehicle._id}/restock`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        quantity: 5,
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.quantity).toBe(6);
+  });
+
 });

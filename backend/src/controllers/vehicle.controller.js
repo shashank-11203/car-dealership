@@ -61,3 +61,66 @@ exports.updateVehicle = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.deleteVehicle = async (req, res) => {
+  try {
+    await Vehicle.findByIdAndDelete(req.params.id);
+
+    res.json({
+      message: "Vehicle deleted successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
+exports.purchaseVehicle = async (req, res) => {
+  try {
+    const vehicle = await Vehicle.findById(req.params.id);
+
+    if (!vehicle)
+      return res.status(404).json({
+        message: "Vehicle not found",
+      });
+
+    if (vehicle.quantity === 0)
+      return res.status(400).json({
+        message: "Out of stock",
+      });
+
+    vehicle.quantity--;
+
+    await vehicle.save();
+
+    res.json(vehicle);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
+exports.restockVehicle = async (req, res) => {
+  try {
+    const { quantity } = req.body;
+
+    const vehicle = await Vehicle.findById(req.params.id);
+
+    if (!vehicle)
+      return res.status(404).json({
+        message: "Vehicle not found",
+      });
+
+    vehicle.quantity += Number(quantity);
+
+    await vehicle.save();
+
+    res.json(vehicle);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
