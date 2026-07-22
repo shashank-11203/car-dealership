@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import AuthLayout from "../components/AuthLayout";
 import api from "../services/api";
 
 function Register() {
@@ -19,31 +20,25 @@ function Register() {
       toast.success("Registration Successful");
 
       navigate("/login");
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Registration Failed");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Registration Failed");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-white shadow-lg rounded-xl p-8 w-96 space-y-5"
-      >
-        <h1 className="text-3xl font-bold text-center">
-          🚗 Car Inventory
-        </h1>
-
-        <p className="text-center text-gray-500">
-          Create your account
-        </p>
-
+    <AuthLayout
+      title="Create Account"
+      subtitle="Start managing dealership inventory"
+    >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <div>
           <input
             type="text"
             placeholder="Name"
-            {...register("name", { required: "Name is required" })}
-            className="w-full border rounded-lg p-3"
+            {...register("name", {
+              required: "Name is required",
+            })}
+            className="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 outline-none"
           />
 
           {errors.name && (
@@ -57,8 +52,10 @@ function Register() {
           <input
             type="email"
             placeholder="Email"
-            {...register("email", { required: "Email is required" })}
-            className="w-full border rounded-lg p-3"
+            {...register("email", {
+              required: "Email is required",
+            })}
+            className="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 outline-none"
           />
 
           {errors.email && (
@@ -76,10 +73,10 @@ function Register() {
               required: "Password is required",
               minLength: {
                 value: 6,
-                message: "Password must be at least 6 characters",
+                message: "Minimum 6 characters",
               },
             })}
-            className="w-full border rounded-lg p-3"
+            className="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 outline-none"
           />
 
           {errors.password && (
@@ -89,10 +86,7 @@ function Register() {
           )}
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition"
-        >
+        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-3 font-semibold">
           Register
         </button>
 
@@ -106,7 +100,7 @@ function Register() {
           </Link>
         </p>
       </form>
-    </div>
+    </AuthLayout>
   );
 }
 

@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import AuthLayout from "../components/AuthLayout";
 import api from "../services/api";
 
 function Login() {
@@ -14,82 +15,70 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await api.post("/auth/login", data);
+      const res = await api.post("/auth/login", data);
 
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
       toast.success("Login Successful");
 
       navigate("/");
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Login Failed");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Login Failed");
     }
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+    <AuthLayout
+      title="Welcome Back"
+      subtitle="Login to manage dealership inventory"
+    >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <div>
+          <input
+            type="email"
+            placeholder="Email"
+            {...register("email", { required: "Email is required" })}
+            className="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.email.message}
+            </p>
+          )}
+        </div>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-8 rounded-xl shadow-lg w-96 space-y-5"
-      >
-        <h1 className="text-3xl font-bold text-center">
-          🚗 Car Inventory
-        </h1>
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            {...register("password", {
+              required: "Password is required",
+            })}
+            className="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+          />
+          {errors.password && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.password.message}
+            </p>
+          )}
+        </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          {...register("email", {
-            required: true,
-          })}
-          className="w-full border rounded p-3"
-        />
-
-        {errors.email && (
-          <p className="text-red-500">
-            Email is required
-          </p>
-        )}
-
-        <input
-          type="password"
-          placeholder="Password"
-          {...register("password", {
-            required: true,
-          })}
-          className="w-full border rounded p-3"
-        />
-
-        {errors.password && (
-          <p className="text-red-500">
-            Password is required
-          </p>
-        )}
-
-        <button
-          className="bg-blue-600 w-full text-white rounded p-3"
-        >
+        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-3 font-semibold">
           Login
         </button>
 
-        <p className="text-center">
-
+        <p className="text-center text-sm">
           Don't have an account?
-
           <Link
-            className="text-blue-600 ml-2"
             to="/register"
+            className="text-blue-600 ml-1 hover:underline"
           >
             Register
           </Link>
-
         </p>
-
       </form>
-
-    </div>
+    </AuthLayout>
   );
 }
 
