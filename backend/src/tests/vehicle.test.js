@@ -58,4 +58,21 @@ describe("Vehicle API", () => {
 
     expect(response.statusCode).toBe(201);
   });
+
+  it("should get all vehicles", async () => {
+  await Vehicle.create({
+    make: "Toyota",
+    model: "Fortuner",
+    category: "SUV",
+    price: 4500000,
+    quantity: 5,
+  });
+
+  const response = await request(app)
+    .get("/api/vehicles")
+    .set("Authorization", `Bearer ${token}`);
+
+  expect(response.statusCode).toBe(200);
+  expect(response.body.length).toBe(1);
+});
 });
