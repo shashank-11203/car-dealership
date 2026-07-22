@@ -101,4 +101,24 @@ it("should search vehicles by make", async () => {
   expect(response.statusCode).toBe(200);
   expect(response.body.length).toBe(1);
 });
+
+it("should update vehicle", async () => {
+  const vehicle = await Vehicle.create({
+    make: "Toyota",
+    model: "Fortuner",
+    category: "SUV",
+    price: 4500000,
+    quantity: 5,
+  });
+
+  const response = await request(app)
+    .put(`/api/vehicles/${vehicle._id}`)
+    .set("Authorization", `Bearer ${token}`)
+    .send({
+      price: 5000000,
+    });
+
+  expect(response.statusCode).toBe(200);
+  expect(response.body.price).toBe(5000000);
+});
 });

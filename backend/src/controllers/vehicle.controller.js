@@ -47,3 +47,17 @@ exports.searchVehicles = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+exports.updateVehicle = async (req, res) => {
+  try {
+    const vehicle = await Vehicle.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    res.json(vehicle);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
