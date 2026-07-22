@@ -76,7 +76,56 @@ describe("Auth API", () => {
 
     expect(user.password).not.toBe("123456");
   });
+
+  it("should login successfully with valid credentials", async () => {
+    // Register first
+    await request(app)
+      .post("/api/auth/register")
+      .send({
+        name: "John",
+        email: "john@test.com",
+        password: "123456",
+      });
+
+    // Login
+    const response = await request(app)
+      .post("/api/auth/login")
+      .send({
+        email: "john@test.com",
+        password: "123456",
+      });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.token).toBeDefined();
+  });
+
+  it("should reject invalid password", async () => {
+    await request(app)
+      .post("/api/auth/register")
+      .send({
+        name: "John",
+        email: "john@test.com",
+        password: "123456",
+      });
+
+    const response = await request(app)
+      .post("/api/auth/login")
+      .send({
+        email: "john@test.com",
+        password: "wrongpassword",
+      });
+
+    expect(response.statusCode).toBe(401);
+  });
+
+  it("should reject unknown email", async () => {
+    const response = await request(app)
+      .post("/api/auth/login")
+      .send({
+        email: "unknown@test.com",
+        password: "123456",
+      });
+
+    expect(response.statusCode).toBe(401);
+  });
 });
-
-
-
