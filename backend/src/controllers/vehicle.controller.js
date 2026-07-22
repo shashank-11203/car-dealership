@@ -23,3 +23,27 @@ exports.getVehicles = async (req, res) => {
     });
   }
 };
+
+exports.searchVehicles = async (req, res) => {
+  try {
+    const { make, model, category, minPrice, maxPrice } = req.query;
+
+    const query = {};
+
+    if (make) query.make = new RegExp(make, "i");
+    if (model) query.model = new RegExp(model, "i");
+    if (category) query.category = new RegExp(category, "i");
+
+    if (minPrice || maxPrice) {
+      query.price = {};
+      if (minPrice) query.price.$gte = Number(minPrice);
+      if (maxPrice) query.price.$lte = Number(maxPrice);
+    }
+
+    const vehicles = await Vehicle.find(query);
+
+    res.json(vehicles);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
