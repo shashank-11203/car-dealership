@@ -6,6 +6,20 @@ The application enables authenticated users to browse and purchase vehicles whil
 
 ---
 
+# Admin Account
+
+For testing admin functionality:
+
+```
+Email:
+admin@mail.com
+
+Password:
+admin123
+```
+
+---
+
 ## ✨ Features
 
 ### Authentication
@@ -124,22 +138,6 @@ car-dealership/
 ```
 
 ---
-
-# Admin Account
-
-For testing admin functionality:
-
-```
-Email:
-admin@mail.com
-
-Password:
-admin@123
-```
-
----
-
-
 
 # Author
 
