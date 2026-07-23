@@ -64,7 +64,7 @@ function Login() {
           )}
         </div>
 
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-3 font-semibold">
+        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-3 font-semibold cursor-pointer">
           Login
         </button>
 
@@ -72,7 +72,7 @@ function Login() {
           Don't have an account?
           <Link
             to="/register"
-            className="text-blue-600 ml-1 hover:underline"
+            className="text-blue-600 ml-1 hover:underline cursor-pointer"
           >
             Register
           </Link>

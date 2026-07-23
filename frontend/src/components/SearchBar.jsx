@@ -8,7 +8,7 @@ function SearchBar({
   return (
     <div className="relative w-full">
       <Search
-        size={20}
+        size={18}
         className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
       />
 
@@ -19,16 +19,18 @@ function SearchBar({
         placeholder={placeholder}
         className="
           w-full
-          pl-12
+          pl-11
           pr-4
-          py-3
-          rounded-xl
+          py-2.5
+          text-sm
+          rounded-lg
           border
           border-slate-300
           bg-white
           outline-none
           focus:ring-2
-          focus:ring-blue-500
+          focus:ring-indigo-500
+          focus:border-indigo-500
           transition
         "
       />

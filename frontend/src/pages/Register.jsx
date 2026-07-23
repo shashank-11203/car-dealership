@@ -38,7 +38,7 @@ function Register() {
             {...register("name", {
               required: "Name is required",
             })}
-            className="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
           />
 
           {errors.name && (
@@ -55,7 +55,7 @@ function Register() {
             {...register("email", {
               required: "Email is required",
             })}
-            className="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
           />
 
           {errors.email && (
@@ -76,7 +76,7 @@ function Register() {
                 message: "Minimum 6 characters",
               },
             })}
-            className="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+            className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
           />
 
           {errors.password && (
@@ -86,15 +86,15 @@ function Register() {
           )}
         </div>
 
-        <button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-3 font-semibold">
+        <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg py-3 text-sm font-medium shadow-sm transition cursor-pointer">
           Register
         </button>
 
-        <p className="text-center text-sm">
+        <p className="text-center text-sm text-slate-600">
           Already have an account?
           <Link
             to="/login"
-            className="text-blue-600 ml-1 hover:underline"
+            className="text-indigo-600 font-medium ml-1 hover:underline cursor-pointer"
           >
             Login
           </Link>

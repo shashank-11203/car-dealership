@@ -95,7 +95,7 @@ function Dashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-100 flex justify-center items-center">
-        <div className="w-16 h-16 rounded-full border-4 border-blue-600 border-t-transparent animate-spin"></div>
+        <div className="w-10 h-10 rounded-full border-2 border-indigo-600 border-t-transparent animate-spin"></div>
       </div>
     );
   }
@@ -106,21 +106,21 @@ function Dashboard() {
 
       <div className="min-h-screen bg-slate-100">
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
           {/* Header */}
 
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-10">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 bg-white rounded-2xl shadow-sm border border-slate-200 px-6 py-5">
 
             <div>
 
-              <h1 className="text-4xl font-bold text-slate-800">
+              <h1 className="text-2xl font-semibold text-slate-900">
                 Dashboard
               </h1>
 
-              <p className="text-slate-500 mt-2">
+              <p className="text-sm text-slate-500 mt-1">
                 Welcome back,
-                <span className="font-semibold ml-2 capitalize">
+                <span className="font-medium text-indigo-600 ml-1 capitalize">
                   {user?.name}
                 </span>
               </p>
@@ -130,9 +130,9 @@ function Dashboard() {
             {user?.role === "admin" && (
               <button
                 onClick={openAddModal}
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition"
+                className="hidden sm:inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg shadow-sm transition cursor-pointer"
               >
-                <Plus size={20} />
+                <Plus size={18} />
                 Add Vehicle
               </button>
             )}
@@ -141,61 +141,33 @@ function Dashboard() {
 
           {/* Statistics */}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
 
             <StatCard
               title="Vehicles"
               value={totalVehicles}
-              icon={<CarFront size={28} />}
-              color="bg-blue-600"
+              icon={<CarFront size={22} />}
+              color="bg-indigo-600"
             />
 
             <StatCard
               title="Stock"
               value={totalStock}
-              icon={<Boxes size={28} />}
-              color="bg-green-600"
+              icon={<Boxes size={22} />}
+              color="bg-emerald-600"
             />
 
             <StatCard
               title="Inventory Value"
               value={`₹ ${totalValue.toLocaleString("en-IN")}`}
-              icon={<IndianRupee size={28} />}
-              color="bg-yellow-500"
+              icon={<IndianRupee size={22} />}
+              color="bg-amber-500"
             />
 
           </div>
           {/* Search */}
 
-          <div className="bg-white rounded-2xl shadow-sm p-5 mb-10">
-
-            {/* <div className="relative"> */}
-
-            {/* <Search
-                size={20}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-              /> */}
-
-            {/* <input
-                type="text"
-                placeholder="Search by make..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="
-                  w-full
-                  pl-12
-                  pr-4
-                  py-3
-                  rounded-xl
-                  border
-                  border-slate-300
-                  bg-white
-                  outline-none
-                  focus:ring-2
-                  focus:ring-blue-500
-                  transition
-                "
-              /> */}
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 mb-8">
 
             <SearchBar
               search={searchText}
@@ -210,18 +182,20 @@ function Dashboard() {
 
           {vehicles.length === 0 ? (
 
-            <div className="bg-white rounded-3xl shadow-sm py-20 text-center">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 py-16 text-center">
 
-              <CarFront
-                size={70}
-                className="mx-auto text-slate-400 mb-6"
-              />
+              <div className="w-16 h-16 rounded-full bg-indigo-50 flex items-center justify-center mx-auto mb-4">
+                <CarFront
+                  size={28}
+                  className="text-indigo-500"
+                />
+              </div>
 
-              <h2 className="text-3xl font-bold text-slate-700">
-                No Vehicles Found
+              <h2 className="text-lg font-semibold text-slate-800">
+                No vehicles found
               </h2>
 
-              <p className="text-slate-500 mt-3">
+              <p className="text-sm text-slate-500 mt-1">
                 Start by adding your first vehicle.
               </p>
 
@@ -233,17 +207,21 @@ function Dashboard() {
                     inline-flex
                     items-center
                     gap-2
-                    mt-8
-                    bg-blue-600
-                    hover:bg-blue-700
+                    mt-6
+                    bg-indigo-600
+                    hover:bg-indigo-700
                     text-white
-                    px-6
-                    py-3
-                    rounded-xl
+                    text-sm
+                    font-medium
+                    px-4
+                    py-2.5
+                    rounded-lg
+                    shadow-sm
                     transition
+                    cursor-pointer
                   "
                 >
-                  <Plus size={20} />
+                  <Plus size={18} />
 
                   Add Vehicle
 
@@ -260,9 +238,9 @@ function Dashboard() {
                 grid
                 grid-cols-1
                 sm:grid-cols-2
-                xl:grid-cols-3
-                2xl:grid-cols-4
-                gap-6
+                lg:grid-cols-3
+                xl:grid-cols-4
+                gap-4
               "
             >
 
@@ -288,21 +266,21 @@ function Dashboard() {
           <button
             onClick={openAddModal}
             className="
-              md:hidden
+              sm:hidden
               fixed
               bottom-6
               right-6
-              bg-blue-600
-              hover:bg-blue-700
+              bg-indigo-600
+              hover:bg-indigo-700
               text-white
               p-4
               rounded-full
-              shadow-2xl
+              shadow-lg
               transition
-              hover:scale-110
+              cursor-pointer
             "
           >
-            <Plus size={26} />
+            <Plus size={22} />
           </button>
         )}
 

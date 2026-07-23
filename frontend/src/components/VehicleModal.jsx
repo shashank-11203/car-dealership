@@ -72,23 +72,23 @@ function VehicleModal({
     return (
         <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 p-4">
 
-            <div className="bg-white rounded-3xl w-full max-w-xl shadow-2xl">
+            <div className="bg-white rounded-2xl w-full max-w-xl shadow-xl border border-slate-200">
 
                 {/* Header */}
 
-                <div className="flex justify-between items-center p-6 border-b">
+                <div className="flex justify-between items-center p-6 border-b border-slate-200">
 
                     <div className="flex items-center gap-3">
 
-                        <div className="bg-blue-600 text-white p-3 rounded-xl">
+                        <div className="bg-indigo-50 text-indigo-600 p-3 rounded-xl">
 
-                            <CarFront size={24} />
+                            <CarFront size={22} />
 
                         </div>
 
                         <div>
 
-                            <h2 className="text-2xl font-bold">
+                            <h2 className="text-xl font-semibold text-slate-900">
 
                                 {editVehicle ? "Edit Vehicle" : "Add Vehicle"}
 
@@ -104,22 +104,25 @@ function VehicleModal({
 
                     </div>
 
-                    <button onClick={onClose}>
-                        <X />
+                    <button
+                        onClick={onClose}
+                        className="text-slate-400 hover:text-slate-600 transition cursor-pointer"
+                    >
+                        <X size={20} />
                     </button>
 
                 </div>
 
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="p-6 space-y-5"
+                    className="p-6 space-y-4"
                 >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                         {/* Make */}
 
                         <div>
-                            <label className="block mb-2 text-sm font-medium text-slate-700">
+                            <label className="block mb-1.5 text-sm font-medium text-slate-700">
                                 Make
                             </label>
 
@@ -128,7 +131,7 @@ function VehicleModal({
                                     required: "Make is required",
                                 })}
                                 placeholder="Toyota"
-                                className="w-full border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                                className="w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                             />
 
                             {errors.make && (
@@ -141,7 +144,7 @@ function VehicleModal({
                         {/* Model */}
 
                         <div>
-                            <label className="block mb-2 text-sm font-medium text-slate-700">
+                            <label className="block mb-1.5 text-sm font-medium text-slate-700">
                                 Model
                             </label>
 
@@ -150,7 +153,7 @@ function VehicleModal({
                                     required: "Model is required",
                                 })}
                                 placeholder="Fortuner"
-                                className="w-full border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                                className="w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                             />
 
                             {errors.model && (
@@ -163,7 +166,7 @@ function VehicleModal({
                         {/* Category */}
 
                         <div>
-                            <label className="block mb-2 text-sm font-medium text-slate-700">
+                            <label className="block mb-1.5 text-sm font-medium text-slate-700">
                                 Category
                             </label>
 
@@ -171,7 +174,7 @@ function VehicleModal({
                                 {...register("category", {
                                     required: "Category is required",
                                 })}
-                                className="w-full border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                                className="w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition cursor-pointer"
                             >
                                 <option value="">Select Category</option>
                                 <option>SUV</option>
@@ -192,7 +195,7 @@ function VehicleModal({
                         {/* Price */}
 
                         <div>
-                            <label className="block mb-2 text-sm font-medium text-slate-700">
+                            <label className="block mb-1.5 text-sm font-medium text-slate-700">
                                 Price
                             </label>
 
@@ -202,7 +205,7 @@ function VehicleModal({
                                     required: "Price is required",
                                 })}
                                 placeholder="4500000"
-                                className="w-full border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                                className="w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                             />
 
                             {errors.price && (
@@ -218,7 +221,7 @@ function VehicleModal({
 
                     <div>
 
-                        <label className="block mb-2 text-sm font-medium text-slate-700">
+                        <label className="block mb-1.5 text-sm font-medium text-slate-700">
                             Quantity
                         </label>
 
@@ -228,7 +231,7 @@ function VehicleModal({
                                 required: "Quantity is required",
                             })}
                             placeholder="10"
-                            className="w-full border border-slate-300 rounded-xl p-3 focus:ring-2 focus:ring-blue-500 outline-none"
+                            className="w-full border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                         />
 
                         {errors.quantity && (
@@ -246,14 +249,14 @@ function VehicleModal({
                         <button
                             type="button"
                             onClick={onClose}
-                            className="border border-slate-300 px-6 py-3 rounded-xl hover:bg-slate-100 transition"
+                            className="border border-slate-300 text-slate-700 text-sm font-medium px-5 py-2.5 rounded-lg hover:bg-slate-50 transition cursor-pointer"
                         >
                             Cancel
                         </button>
 
                         <button
                             type="submit"
-                            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition"
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg shadow-sm transition cursor-pointer"
                         >
                             {editVehicle ? "Update Vehicle" : "Add Vehicle"}
                         </button>

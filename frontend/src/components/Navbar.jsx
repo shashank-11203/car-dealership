@@ -13,8 +13,8 @@ function Navbar() {
   };
 
   return (
-    <header className="flex sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
-      <div className="flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="h-16 flex items-center justify-between">
 
@@ -24,12 +24,12 @@ function Navbar() {
             to="/"
             className="flex items-center gap-3"
           >
-            <div className="bg-blue-600 p-2 rounded-xl text-white">
-              <CarFront size={22} />
+            <div className="bg-indigo-600 p-2 rounded-lg text-white">
+              <CarFront size={20} />
             </div>
 
             <div>
-              <h1 className="font-bold text-lg">
+              <h1 className="font-semibold text-base text-slate-900">
                 Car Inventory
               </h1>
 
@@ -43,15 +43,13 @@ function Navbar() {
 
           <div className="flex items-center gap-3">
 
-            
+            <div className="hidden md:flex items-center gap-2 bg-slate-100 px-3.5 py-2 rounded-lg">
 
-            <div className="hidden md:flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-xl">
-
-              <User size={18} />
+              <User size={16} className="text-slate-500" />
 
               <div>
 
-                <p className="font-medium text-sm">
+                <p className="font-medium text-sm text-slate-800">
                   {user?.name}
                 </p>
 
@@ -65,7 +63,7 @@ function Navbar() {
 
             <button
               onClick={logout}
-              className="bg-red-500 hover:bg-red-600 text-white p-3 rounded-xl transition"
+              className="bg-red-500 hover:bg-red-600 text-white p-2.5 rounded-lg transition cursor-pointer"
             >
               <LogOut size={18} />
             </button>
