@@ -143,13 +143,13 @@ car-dealership/
 
 ## 🔐 Authentication
 
-### Login
-
-![Login](./screenshots/login.jpg)
-
 ### Register
 
 ![Register](./screenshots/register.jpg)
+
+### Login
+
+![Login](./screenshots/login.jpg)
 
 ---
 
