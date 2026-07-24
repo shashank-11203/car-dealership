@@ -205,7 +205,7 @@ Increase available inventory instantly.
 
 Toast notifications provide instant feedback for actions such as purchase, update, delete, and restock.
 
-![Alerts](./screenshots/Live alerts with purchase & delete.jpg)
+![Alerts](./screenshots/LiveAlertsWithPurchase&Delete.jpg)
 
 ---
 
