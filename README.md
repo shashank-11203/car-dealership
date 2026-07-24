@@ -139,6 +139,76 @@ car-dealership/
 
 ---
 
+# 📸 Application Screenshots
+
+## 🔐 Authentication
+
+### Login
+
+![Login](./screenshots/login.jpg)
+
+### Register
+
+![Register](./screenshots/register.jpg)
+
+---
+
+## 📊 Dashboard
+
+### Admin Dashboard
+
+![Dashboard](./screenshots/adminDashboard.jpg)
+
+---
+
+## 🔍 Search Functionality
+
+Quickly search vehicles by make.
+
+![Search](./screenshots/search.jpg)
+
+---
+
+## ➕ Add Vehicle
+
+Admins can add new vehicles through a reusable modal.
+
+![Add Vehicle](./screenshots/AddVehicle.jpg)
+
+---
+
+## ✏️ Edit Vehicle
+
+Update vehicle details using the same modal interface.
+
+![Edit Vehicle](./screenshots/EditVehicle.jpg)
+
+---
+
+## 🗑️ Delete Vehicle
+
+Delete confirmation before removing a vehicle.
+
+![Delete Vehicle](./screenshots/deleteVehicle.jpg)
+
+---
+
+## 📦 Restock Vehicle
+
+Increase available inventory instantly.
+
+![Restock Vehicle](./screenshots/RestockVehicle.jpg)
+
+---
+
+## 🔔 Live Alerts
+
+Toast notifications provide instant feedback for actions such as purchase, update, delete, and restock.
+
+![Alerts](./screenshots/Live alerts with purchase & delete.jpg)
+
+---
+
 # Author
 
 Shashank Solanki
